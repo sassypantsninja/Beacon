@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Beacon is Ownable {
+    address private implementation;
+
+    event ImplementationChanged(address indexed newImplementation);
+
+    constructor(address _initialImplementation) {
+        implementation = _initialImplementation;
+    }
+
+    function getImplementation() external view returns (address) {
+        return implementation;
+    }
+
+    function setImplementation(address _newImplementation) external onlyOwner {
+        implementation = _newImplementation;
+        emit ImplementationChanged(_newImplementation);
+    }
+}
